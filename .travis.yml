@@ -12,6 +12,8 @@ install:
 script:
   - pwd
   - ls -a
+  - ls -a ../
+  - ls -a ${HOME}
   - printenv
 branches:
   only: master
