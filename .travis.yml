@@ -9,3 +9,4 @@ script:
   - ls -a ../
   - ls -a ${HOME}
   - printenv
+  - df -h
