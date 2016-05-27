@@ -4,6 +4,8 @@ compiler: gcc
 language: cpp
 before_install:
 script:
+  - ./setup_environment.sh
+  - source env.sh
   - cd $HOME
-  - pwd
-  - python builds/leadmocha/test_g4sbs_ci/run_buildtests.py
+  - python build/leadmocha/test_g4sbs_ci/run_buildtests.py
+  - cat logs/*
