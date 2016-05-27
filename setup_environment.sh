@@ -14,7 +14,7 @@ xercesc_file=xerces-c-3.1.3.tar.gz
 geant4_file=geant4.10.01.p01.tar.gz
 geant4_share=Geant4-10.1.1
 geant4_datafiles=(G4NDL.4.5 G4EMLOW.6.48 G4PhotonEvaporation.3.2 G4RadioactiveDecay.4.3.1 G4SAIDDATA.1.1 G4NEUTRONXS.1.4 G4ABLA.3.0 G4PII.1.3 RealSurface.1.0 G4ENSDFSTATE.1.2.1 G4TENDL.1.0)
-fileldmaps_file=
+fileldmaps_file=fieldmaps.tar.gz
 
 
 ###############################################################################
@@ -56,13 +56,19 @@ local_install root ${root_file}
 ## Install the Geant4 data files
 cd ${HOME}/apps/geant4/share/${geant4_share}/data
 for dat in ${geant4_datafiles[@]}; do
-  wget -c ${www_dat}/${dat}.tar.gz
-  tar xf ${dat}.tar.gz
-  rm ${dat}.tar.gz
+  if [ ! -e ${dat}.installed ]; then
+    wget -c ${www_dat}/${dat}.tar.gz
+    tar xf ${dat}.tar.gz
+    rm ${dat}.tar.gz
+    echo "installed" > ${dat}.installed
+  fi
+  touch ${dat}.installed
 done
 
 ## Install the g4sbs field maps
 cd ${HOME}
-wget -c ${www_base}/${fieldmaps_file}
-tar xf ${fieldmaps_file}
-rm ${fieldmaps_file}
+if [ ! -d fieldmaps ]; then
+  wget -c ${www_base}/${fieldmaps_file}
+  tar xf ${fieldmaps_file}
+  rm ${fieldmaps_file}
+fi
