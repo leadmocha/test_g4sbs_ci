@@ -38,12 +38,14 @@ function local_install()
 {
   echo "Installing $1 from archive $2"
   cd ${APPS_DIR}
-  wget -c ${www_comp}/$2
-  mkdir $1
-  cd $1
-  tar xf ../$2
-  cd ..
-  rm $2
+  if [ ! -d $1 ]; then
+    wget -c ${www_comp}/$2
+    mkdir $1
+    cd $1
+    tar xf ../$2
+    cd ..
+    rm $2
+  fi
 }
 
 local_install cmake ${cmake_file}
