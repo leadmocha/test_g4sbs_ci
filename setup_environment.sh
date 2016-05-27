@@ -1,0 +1,66 @@
+#!/bin/bash
+
+## Get the path of the repo
+repo_dir=`pwd`
+
+www_base=http://emilio.phys.cmu.edu/~cornejo/public/g4sbs
+www_comp=${www_base}/compiled
+www_src="${www_base}/source"
+www_dat=${www_base}/data
+
+cmake_file=cmake-3.5.2-Linux-x86_64.tar.gz
+root_file=root_v5.34.32.Linux-ubuntu12-x86_64-gcc4.6.tar.gz
+xercesc_file=xerces-c-3.1.3.tar.gz
+geant4_file=geant4.10.01.p01.tar.gz
+geant4_share=Geant4-10.1.1
+geant4_datafiles=(G4NDL.4.5 G4EMLOW.6.48 G4PhotonEvaporation.3.2 G4RadioactiveDecay.4.3.1 G4SAIDDATA.1.1 G4NEUTRONXS.1.4 G4ABLA.3.0 G4PII.1.3 RealSurface.1.0 G4ENSDFSTATE.1.2.1 G4TENDL.1.0)
+fileldmaps_file=
+
+
+###############################################################################
+## Start the setup
+APPS_DIR=${HOME}/apps
+
+## Get the environment file
+if [ ! -e env.sh ]; then
+  wget -c ${www_base}/env.4sh
+fi
+
+## Make the directory structure
+cd ${HOME}
+mkdir -p ${APPS_DIR}
+mkdir g4sbs_buildtests
+mkdir logs
+
+## Define the installer function
+
+function local_install()
+{
+  echo "Installing $1 from archive $2"
+  cd ${APPS_DIR}
+  wget -c ${www_comp}/$2
+  mkdir $1
+  cd $1
+  tar xf ../$2
+  cd ..
+  rm $2
+}
+
+local_install cmake ${cmake_file}
+local_install xercesc ${xercesc_file}
+local_install geant4 ${geant4_file}
+local_install root ${root_file}
+
+## Install the Geant4 data files
+cd ${HOME}/apps/geant4/share/${geant4_share}/data
+for dat in ${geant4_datafiles[@]}; do
+  wget -c ${www_dat}/${dat}.tar.gz
+  tar xf ${dat}.tar.gz
+  rm ${dat}.tar.gz
+done
+
+## Install the g4sbs field maps
+cd ${HOME}
+wget -c ${www_base}/${fieldmaps_file}
+tar xf ${fieldmaps_file}
+rm ${fieldmaps_file}
