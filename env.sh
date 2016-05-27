@@ -14,7 +14,7 @@ export PATH=${XERCESC_HOME}/bin:${PATH}
 
 ## geant4
 export GEANT4_VERSION=4.10.01.p01
-source ${APPS_DIR}/geant4/${GEANT4_VERSION}/bin/geant4.sh
+source ${APPS_DIR}/geant4/geant${GEANT4_VERSION}/bin/geant4.sh
 
 ## Setup ROOT
 export ROOT_VERSION=v5.34.32

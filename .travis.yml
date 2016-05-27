@@ -2,14 +2,8 @@ sudo: false
 os: linux
 compiler: gcc
 language: cpp
-cache:
-  directories:
-    - $HOME/apps
-    - $HOME/fieldmaps
 before_install:
 script:
-  - ./setup_environment.sh
-  - source env.sh
   - cd $HOME
+  - pwd
   - python builds/leadmocha/test_g4sbs_ci/run_buildtests.py
-  - cat logs/*

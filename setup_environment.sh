@@ -13,8 +13,8 @@ root_file=root_v5.34.32.Linux-ubuntu12-x86_64-gcc4.6.tar.gz
 xercesc_file=xerces-c-3.1.3.tar.gz
 geant4_file=geant4.10.01.p01.tar.gz
 geant4_share=Geant4-10.1.1
-geant4_datafiles=(G4NDL.4.5 G4EMLOW.6.48 G4PhotonEvaporation.3.2 G4RadioactiveDecay.4.3.1 G4SAIDDATA.1.1 G4NEUTRONXS.1.4 G4ABLA.3.0 G4PII.1.3 RealSurface.1.0 G4ENSDFSTATE.1.2.1 G4TENDL.1.0)
-fileldmaps_file=fieldmaps.tar.gz
+geant4_datalist_file=geant4_data.txt
+fieldmaps_file=fieldmaps.tar.gz
 
 
 ###############################################################################
@@ -23,7 +23,7 @@ APPS_DIR=${HOME}/apps
 
 ## Get the environment file
 if [ ! -e env.sh ]; then
-  wget -c ${www_base}/env.4sh
+  wget -c ${www_base}/env.sh
 fi
 
 ## Make the directory structure
@@ -54,8 +54,13 @@ local_install geant4 ${geant4_file}
 local_install root ${root_file}
 
 ## Install the Geant4 data files
-cd ${HOME}/apps/geant4/share/${geant4_share}/data
-for dat in ${geant4_datafiles[@]}; do
+geant4_version=`basename ${geant4_file} .tar.gz`
+cd ${HOME}/apps/geant4/${geant4_version}/share/${geant4_share}
+mkdir data
+cd data
+wget -c ${www_dat}/${geant4_datalist_file}
+#geant4_datafiles=(G4NDL.4.5 G4EMLOW.6.48 G4PhotonEvaporation.3.2 G4RadioactiveDecay.4.3.1 G4SAIDDATA.1.1 G4NEUTRONXS.1.4 G4ABLA.3.0 G4PII.1.3 RealSurface.1.0 G4ENSDFSTATE.1.2.1 G4TENDL.1.0)
+for dat in `cat ${geant4_datalist_file}`; do
   if [ ! -e ${dat}.installed ]; then
     wget -c ${www_dat}/${dat}.tar.gz
     tar xf ${dat}.tar.gz
