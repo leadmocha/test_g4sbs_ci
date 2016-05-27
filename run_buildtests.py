@@ -127,7 +127,7 @@ def main():
       % len(scriptlist), True)
   for script in scriptlist:
     myOutLog('  Testing ' + script.replace('../g4sbs/',''))
-    runExit('time','./g4sbs','--pre=buildtests_preinit.mac',
+    runExit('./g4sbs','--pre=buildtests_preinit.mac',
         '--post=' + script)
     myOut('.....Success',True)
 
