@@ -4,7 +4,12 @@ compiler: gcc
 language: cpp
 before_install:
 script:
+  - ls
+  - pwd
   - ./setup_environment.sh
-  - source ${HOME}/env.sh
-  - travis_wait 30 python build/leadmocha/test_g4sbs_ci/run_buildtests.py build/leadmocha/test_g4sbs_ci/
+  - source env.sh
+  - pwd
+  - ls
+  - echo "Starting the tests"
+  - travis_wait 30 python run_buildtests.py travis.conf
   - cat logs/*
