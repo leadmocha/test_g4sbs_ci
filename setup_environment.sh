@@ -75,6 +75,8 @@ done
 cd ${HOME}
 if [ ! -d fieldmaps ]; then
   wget -c ${www_base}/${fieldmaps_file}
-  tar xf ${fieldmaps_file}
+  tar xvf ${fieldmaps_file}
   rm ${fieldmaps_file}
+  ls
+  pwd
 fi
