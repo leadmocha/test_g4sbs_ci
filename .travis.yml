@@ -12,4 +12,4 @@ script:
   - ls
   - echo "Starting the tests"
   - travis_wait 30 python run_buildtests.py travis.conf
-  - cat logs/*
+  - cat buildtest*.log
