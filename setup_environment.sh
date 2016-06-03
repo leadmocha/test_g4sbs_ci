@@ -19,6 +19,8 @@ fieldmaps_file=fieldmaps.tar.gz
 
 ###############################################################################
 ## Start the setup
+mkdir logs
+
 APPS_DIR=${HOME}/apps
 
 ## Get the environment file
@@ -30,7 +32,6 @@ fi
 cd ${HOME}
 mkdir -p ${APPS_DIR}
 mkdir g4sbs_buildtests
-mkdir logs
 
 ## Define the installer function
 
