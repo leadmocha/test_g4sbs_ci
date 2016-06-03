@@ -287,7 +287,7 @@ def linkFieldMaps():
   for filename in helper_files:
     myOutLog('Linking ' + filename + ' -> ' + 
         filename.replace(conf['fieldmap_dir'],''), True)
-    os.symlink(filename,filename.replace(conf['fieldmap_dir'],''))
+    os.symlink(filename,filename.replace(conf['fieldmap_dir']+'/',''))
   os.chdir(pwd) ## Change back into previous working directory
 
 ## Run the tests on a script and return the status
