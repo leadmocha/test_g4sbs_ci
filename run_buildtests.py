@@ -255,8 +255,8 @@ def cloneRepo():
   ## Show last commit
   runExit('git','log','-1')
   ## Just a simple test to see if this is the cause of it all breaking
-  os.remove('CMakeLists.txt')
-  runExit('wget','http://emilio.phys.cmu.edu/~cornejo/public/g4sbs/CMakeLists.txt')
+  #os.remove('CMakeLists.txt')
+  #runExit('wget','http://emilio.phys.cmu.edu/~cornejo/public/g4sbs/CMakeLists.txt')
   os.chdir(pwd) ## Change back to the previous working directory
   myOutResult('done')
 
